@@ -15,6 +15,7 @@ def general(path):
     BASE_URL = 'https://api.openai.com/v1/'
     new_url = urllib.parse.urljoin(BASE_URL, path)
     resp = requests.request(request.method, new_url, headers=headers, data=request.data)
+    print(resp.content)
     return  resp.content, resp.status_code, resp.headers.items()
 
 
