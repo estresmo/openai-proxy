@@ -13,7 +13,7 @@ def general(path):
     headers = dict(request.headers)
     BASE_URL = 'https://api.openai.com/v1/'
     new_url = urllib.parse.urljoin(BASE_URL, path)
-    print(headers)
+    print(request.json)
     resp = requests.request(request.method, new_url, headers=headers, json=request.json)
     return  resp.content, resp.status_code, resp.headers.items()
 
