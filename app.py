@@ -1,7 +1,8 @@
 from flask import Flask, request
 import requests
 import urllib.parse
-from flask_compress import Compress, Cache
+from flask_compress import Compress
+from flask_caching import Cache
 
 app = Flask(__name__)
 app.config["COMPRESS_REGISTER"] = False  # disable default compression of all eligible requests
