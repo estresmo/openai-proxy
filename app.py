@@ -10,7 +10,6 @@ methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
 @app.route("/<string:path>", methods=methods)
 @app.route('/<path:path>', methods=methods)
 def general(path):
-    print(request.headers)
     headers = {
         'Content-Type': 'application/json',
         'Authorization': request.headers.get('Authorization')
@@ -18,7 +17,7 @@ def general(path):
     BASE_URL = 'https://api.openai.com/v1/'
     new_url = urllib.parse.urljoin(BASE_URL, path)
     resp = requests.request(request.method, new_url, headers=headers, json=request.json, timeout=300)
-    print(resp)
+    print(resp.headers)
     return  resp.content, resp.status_code, resp.headers.items()
 
 
