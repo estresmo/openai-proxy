@@ -3,8 +3,12 @@ import requests
 import urllib.parse
 
 app = Flask(__name__)
+
+methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+
 @app.route('/', defaults={'path': ''})
-@app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
+@app.route("/<string:path>", methods=methods)
+@app.route('/<path:path>', methods=methods)
 def general(path):
     print(request)
     headers = request.headers
