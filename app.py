@@ -10,6 +10,7 @@ methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
 @app.route("/<string:path>", methods=methods)
 @app.route('/<path:path>', methods=methods)
 def general(path):
+    print(request.headers)
     headers = {
         'Content-Type': 'application/json',
         'Authorization': request.headers.get('Authorization')
