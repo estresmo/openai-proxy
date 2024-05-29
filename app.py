@@ -1,14 +1,32 @@
 from flask import Flask, request
 import requests
 import urllib.parse
+from flask_compress import Compress, Cache
 
 app = Flask(__name__)
+app.config["COMPRESS_REGISTER"] = False  # disable default compression of all eligible requests
+compress = Compress()
+compress.init_app(app)
+
+cache = Cache(app, config={
+    'CACHE_TYPE': 'simple',
+    'CACHE_DEFAULT_TIMEOUT': 60*60  # 1 hour cache timeout
+})
+def get_cache_key(request):
+    return request.url
+
+
+compress.cache = cache
+compress.cache_key = get_cache_key
+
+
 
 methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
 
 @app.route('/', defaults={'path': ''})
 @app.route("/<string:path>", methods=methods)
 @app.route('/<path:path>', methods=methods)
+@compress.compressed()
 def general(path):
     print(request.headers)
     headers = {
