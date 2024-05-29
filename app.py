@@ -18,9 +18,10 @@ def general(path):
     new_url = urllib.parse.urljoin(BASE_URL, path)
     resp = requests.request(request.method, new_url, headers=headers, json=request.json, timeout=300)
     new_headers = dict(resp.headers)
-    new_headers.pop('transfer-encoding', None)
-    new_headers.pop('content-length', None)
     new_headers.pop('Content-Encoding', None)
+    new_headers.pop('Transfer-Encoding', None)
+    new_headers.pop('Connection', None)
+    new_headers.pop('CF-Cache-Status', None)
     return  resp.content, resp.status_code, resp.headers.items()
 
 
